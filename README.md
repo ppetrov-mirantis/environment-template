@@ -127,3 +127,27 @@ nodes:
         ens3:
           role: single_ctl
 ```
+
+Override addresses example:
+```
+nodes:
+    gtw01.mcp11-ovs-dpdk.local:
+      reclass_storage_name: openstack_control_node01
+      roles:
+      - openstack_gateway
+      - linux_system_codename_xenial
+      interfaces:
+        enp3s0f0:
+          role: single_mgm
+          deploy_address: 1.1.1.10
+          deploy_network_netmask: 255.255.252.0
+          deploy_network_gateway: 1.1.1.1
+        enp3s0f1:
+          role: single_ctl
+          single_address: 2.2.2.2
+          control_network_netmask: 255.255.255.0
+        enp8s0f0:
+          role: bond1_ab_ovs_floating
+        enp8s0f1:
+          role: bond1_ab_ovs_floating
+```

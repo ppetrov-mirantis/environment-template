@@ -12,24 +12,25 @@ parameters:
       node:
       {%- for inventory_node_name, node in nodes.items()|sort %}
         {%- set node_name = inventory_node_name.split('.')[0] %}
-        {{ node['reclass_storage_name'] }}:
 
+        {{ node['reclass_storage_name'] }}:
+          {#-#}
           {#- 'local_metadata' is to collect the data from different roles in a single place inside the node #}
           {%- set local_metadata = {} %}
           {#- 'params' dict object is dynamically generated from 'roles' to add on the node #}
           {%- set params = {} %}
-
+          {#-#}
           {%- macro register_metaparam(param_name, role_name) %}
           {#- Add the <role_name> into the list attached to <param_name> #}
           {#- to control that the <param_name> is not spreaded across incompatible roles #}
             {%- set _ = local_metadata.update({param_name: local_metadata.get(param_name, []) + [role_name]}) %}
           {%- endmacro %}
-
+          {#-#}
           {%- macro set_param(param_name, param_value) %}
           {#- Set a parameter for '_param' dict for the node #}
             {%- set _ = params.update({param_name: param_value}) %}
           {%- endmacro %}
-
+          {#-#}
           classes:
           {#- Default roles are added to each node #}
           {#- 'overrides' must be the very last role for each node #}

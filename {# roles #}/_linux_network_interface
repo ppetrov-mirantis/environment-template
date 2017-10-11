@@ -5,6 +5,21 @@
  #    interface_param2: value
  #    ...
  #}
+{%- set interface_allowed_params = [
+        'deploy_address',
+        'deploy_network_netmask',
+        'deploy_network_gateway',
+        'single_address',
+        'control_vlan',
+        'control_network_netmask',
+        'tenant_vlan',
+        'tenant_address',
+        'tenant_network_netmask',
+        'tenant_network_gateway',
+        'dns_server01',
+        'dns_server02',
+    ]
+%}
 {%- set interface_roles = {} %}
 {%- for interface_name, interface in node['interfaces'].items() %}
   {%- if interface['role'] not in interface_roles %}
@@ -13,9 +28,12 @@
   {%- set _ = interface_roles[interface['role']].update({interface_name: {}}) %}
   {%- for param_name, param in interface.items() %}
     {%- set _ = interface_roles[interface['role']][interface_name].update({param_name: param}) %}
+    {%- if param_name in interface_allowed_params %}
+      {%- set _ = params.update({param_name: param}) %}
+    {%- endif %}
   {%- endfor %}
 {%- endfor %}
-{%- set _ = params.update({'linux_network_interfaces': "\n"}) %}
+{%- set _ = params.update({'linux_network_interfaces':''}) %}
 {%- for interfaces_role, interfaces in interface_roles.items() %}
   {%- import ("{# interfaces #}/" + interfaces_role) as interface with context %}
   {%- set _ = params.update({'linux_network_interfaces': params['linux_network_interfaces'] + interface|string }) %}

@@ -9,7 +9,6 @@
 {#-   _param:tenant_address         #}
 {#-   _param:tenant_netmask         #}
 {#-   _param:tenant_vlan           #}
-
               # {{ interfaces_role }}
               {%- for interface_name, interface in interfaces.items() %}
               {{ interface_name }}:

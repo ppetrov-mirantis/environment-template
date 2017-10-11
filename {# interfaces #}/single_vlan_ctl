@@ -8,7 +8,6 @@
 {#-   _param:control_vlan         #}
 {#-   _param:dns_server01         #}
 {#-   _param:dns_server02         #}
-
               # {{ interfaces_role }}
               {%- set interface_name = interfaces.keys()[0] %}
               {{ interface_name }}:

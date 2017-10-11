@@ -7,7 +7,6 @@
 {#-   _param:single_address         #}
 {#-   _param:control_network_netmask         #}
 {#-   _param:control_vlan           #}
-
               # {{ interfaces_role }}
               {%- for interface_name, interface in interfaces.items() %}
               {{ interface_name }}:

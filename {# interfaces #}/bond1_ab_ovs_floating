@@ -5,7 +5,6 @@
 {#-   _param:?addr         #}
 {#-   _param:?mask         #}
 {#-   _param:?vlan           #}
-
               # {{ interfaces_role }}
               {%- for interface_name, interface in interfaces.items() %}
               {{ interface_name }}:
