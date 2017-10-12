@@ -151,3 +151,10 @@ nodes:
         enp8s0f1:
           role: bond1_ab_ovs_floating
 ```
+
+TODO
+----
+* Address plan: ability to specify L3 network pools and generate address metadata for nodes from specified pools
+* In case of up scale the inventory for the second render the model, take into account the metadata objects
+  that were already assigned to the node, to not mix it on the nodes in each new render with new nodes.
+  existing nodes;
