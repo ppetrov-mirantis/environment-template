@@ -1,0 +1,24 @@
+{#- Control network. For control plane nodes #}
+{#- Provides:                         #}
+{#-   br_mgmt (linux bridge) + address #}
+{#-   _param:keepalived_vip_interface = 'br_mgmt' #}
+{#- Requires:                         #}
+{#-   _param:single_address         #}
+              # {{ interfaces_role }}
+              {%- set interface_name = interfaces.keys()[0] %}
+              {{ interface_name }}:
+                enabled: true
+                name: {{ interface_name }}
+                mtu: ${_param:interface_mtu}
+                proto: manual
+                type: eth
+              br-mgmt:
+                enabled: true
+                type: bridge
+                proto: static
+                address: ${_param:_esc}{_param:single_address}
+                netmask: 255.255.255.0
+                use_interfaces:
+                - {{ interface_name }}
+                require_interfaces:
+                - {{ interface_name }}
